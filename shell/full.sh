@@ -23,13 +23,13 @@ fi
 if command -v fzf >/dev/null 2>&1; then
   if [ -n "${ZSH_VERSION:-}" ]; then
     # fzf >= 0.48 has built-in shell integration; older versions ship key-binding files
-    eval "$(fzf --zsh 2>/dev/null)" 2>/dev/null || {
+    if fzf --zsh >/dev/null 2>&1; then eval "$(fzf --zsh)"; else
       for f in /usr/share/doc/fzf/examples/key-bindings.zsh /usr/share/fzf/shell/key-bindings.zsh; do
-        [ -f "$f" ] && . "$f" && break; done; }
+        [ -f "$f" ] && . "$f" && break; done; fi
   elif [ -n "${BASH_VERSION:-}" ]; then
-    eval "$(fzf --bash 2>/dev/null)" 2>/dev/null || {
+    if fzf --bash >/dev/null 2>&1; then eval "$(fzf --bash)"; else
       for f in /usr/share/doc/fzf/examples/key-bindings.bash /usr/share/fzf/shell/key-bindings.bash; do
-        [ -f "$f" ] && . "$f" && break; done; }
+        [ -f "$f" ] && . "$f" && break; done; fi
   fi
 fi
 

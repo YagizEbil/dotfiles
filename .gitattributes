@@ -1,0 +1,4 @@
+# Force LF everywhere so scripts run on every OS (CRLF breaks bash shebangs)
+* text=auto eol=lf
+*.sh  text eol=lf
+hooks/* text eol=lf

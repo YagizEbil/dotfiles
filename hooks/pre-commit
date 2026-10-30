@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Block commits that contain secrets. Install gitleaks with: ./install.sh --deps
+PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"   # GUI git clients have a minimal PATH
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "pre-commit: gitleaks not installed - run './install.sh --deps'. Commit blocked." >&2
+  exit 1
+fi
+# gitleaks >= 8.19 uses `git --staged`; older versions use `protect --staged`
+if gitleaks git --help >/dev/null 2>&1; then
+  cmd=(gitleaks git --staged --redact -v)
+else
+  cmd=(gitleaks protect --staged --redact -v)
+fi
+"${cmd[@]}" || { echo "pre-commit: possible secret detected. Commit blocked." >&2; exit 1; }

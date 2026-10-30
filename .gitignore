@@ -1,0 +1,27 @@
+# Secrets — never commit
+.secrets
+*.secret
+*.local
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+
+# Vim plugin/runtime dirs (vim-plug reinstalls these)
+vim/plugged/
+vim/autoload/plug.vim
+*.swp
+*.swo
+*~
+.netrwhist
+undodir/
+
+# OS junk
+.DS_Store
+
+# Per-machine overrides
+.shell.local
+*.bak.*

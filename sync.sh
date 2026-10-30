@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# Pull latest dotfiles and re-apply. Usage: ./sync.sh   (add "push" to also push local commits)
+# Pull latest dotfiles and re-apply with this machine's saved mode.
+# Usage: ./sync.sh          pull + re-apply
+#        ./sync.sh push     pull + re-apply + push local commits
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")"
 if ! git diff --quiet || ! git diff --cached --quiet; then
@@ -7,4 +9,4 @@ if ! git diff --quiet || ! git diff --cached --quiet; then
 fi
 git pull --rebase
 ./install.sh
-[ "${1:-}" = push ] && git push
+if [ "${1:-}" = push ]; then git push; fi

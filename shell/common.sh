@@ -1,5 +1,6 @@
 # Shared shell config for bash and zsh on macOS, Ubuntu/Debian and Rocky/RHEL.
 # Sourced from ~/.bashrc and ~/.zshrc by a line install.sh adds.
+# This is the light-mode base; full mode adds shell/full.sh on top.
 # Keep it POSIX-ish so both shells can read it.
 
 # --- OS detection ---------------------------------------------------------
@@ -34,6 +35,11 @@ else
 fi
 alias ll='ls -lAh'
 alias grep='grep --color=auto'
+
+# --- Mode (light/full), set by install.sh ---------------------------------
+DOTFILES_MODE=$(cat "$HOME/.dotfiles_mode" 2>/dev/null || echo light)
+export DOTFILES_MODE
+[ "$DOTFILES_MODE" = full ] && [ -f "$HOME/.dotfiles/shell/full.sh" ] && . "$HOME/.dotfiles/shell/full.sh"
 
 # --- Secrets & per-machine overrides (both untracked) ---------------------
 [ -f "$HOME/.secrets" ] && . "$HOME/.secrets"

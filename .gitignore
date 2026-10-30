@@ -25,3 +25,5 @@ undodir/
 # Per-machine overrides
 .shell.local
 *.bak.*
+.vimrc.local
+.tmux.local.conf
